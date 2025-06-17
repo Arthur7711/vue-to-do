@@ -1,7 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import TodoAdder from './components/TodoAdder.vue';
+
+</script>
 
 <template>
-  <h1>Title</h1>
+  <TodoAdder />
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+h1 {
+    color: red;
+
+  p {
+    color: red;
+  }
+}
+</style>
