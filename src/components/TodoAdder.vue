@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 
 import Logo from '@/assets/logo.png'
-import { addTodo, todos } from '@/store'
+import { addTodo } from '@/store'
 
 const todoValue = ref('')
 const canAddTodo = computed(() => !!todoValue.value)
@@ -55,7 +55,7 @@ const addItem = () => {
       outline: none;
       transition: all 0.3s ease;
       box-shadow: 0 4px 10px $shadow-color;
-      background-color: $inpute-bg-color;
+      background-color: $white;
       color: $text-color;
       display: block;
 
@@ -71,7 +71,7 @@ const addItem = () => {
       border: 2px solid $border-color;
       border-radius: 10px;
       transition: all 0.3s ease;
-      background-color: $inpute-bg-color;
+      background-color: $white;
       color: $text-color;
       cursor: pointer;
 
