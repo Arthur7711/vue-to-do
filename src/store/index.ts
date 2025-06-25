@@ -6,13 +6,19 @@ interface todoItem {
 
 function todoStore() {
   const todos = ref<todoItem[]>([])
+  const approvesTodos = ref<todoItem[]>([])
   const addTodo = (todo: todoItem) => {
     todos.value.push(todo)
   }
   const removeTodo = (id: string) => {
-    todos.value = todos.value.filter((el) => el.id === id)
+    todos.value = todos.value.filter((el) => el.id !== id)
   }
-  return { todos, addTodo, removeTodo }
+  const approveTodo = (id: string) => {
+    const todoItem = todos.value.find((el) => el.id === id)
+    todos.value = todos.value.filter((el) => el.id !== id)
+    approvesTodos.value.push(todoItem!)
+  }
+  return { todos, approvesTodos, addTodo, removeTodo, approveTodo }
 }
 
-export const { todos, addTodo, removeTodo } = todoStore()
+export const { todos, approvesTodos, addTodo, removeTodo, approveTodo } = todoStore()

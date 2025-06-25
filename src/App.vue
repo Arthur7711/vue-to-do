@@ -4,10 +4,15 @@ import TodoList from './components/TodoList.vue';
 </script>
 
 <template>
-  <main>
+  <main class="todoContainer">
     <TodoAdder />
     <TodoList />
   </main>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.todoContainer {
+  height: 100vh;
+  overflow: hidden;
+}
+</style>

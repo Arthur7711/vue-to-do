@@ -32,6 +32,7 @@ const addItem = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 290px;
 
   .imageBox {
     display: flex;

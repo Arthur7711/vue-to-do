@@ -4,24 +4,31 @@ interface ITodo {
   text: string
 }
 
-defineProps<{ todo: ITodo }>()
+const props = defineProps<{ todo: ITodo; isApproved?: boolean }>()
 
-const emit = defineEmits({
-  removeTodo: (id: string) => {},
-  approveTodo: (id: string) => {},
-})
+const emit = defineEmits<{
+  (e: 'approveTodo', id: string): void
+  (e: 'removeTodo', id: string): void
+}>()
+
+const onApproveTodo = () => {
+  emit('approveTodo', props.todo.id)
+}
+const onRemoveTodo = () => {
+  emit('removeTodo', props.todo.id)
+}
 </script>
 <template>
-  <div class="todo-item">
-    <span class="todo-text">{{ todo.text }}</span>
-    <div class="todo-actions">
-      <button class="approve-btn">✔</button>
-      <button class="remove-btn">✖</button>
+  <div class="todoItem">
+    <span class="todoText" :class="{ approvedText: isApproved }">{{ todo.text }}</span>
+    <div v-if="!isApproved" class="todoActions">
+      <button class="approveBTN" @click="onApproveTodo">✔</button>
+      <button class="removeBTN" @click="onRemoveTodo">✖</button>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
-.todo-item {
+.todoItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,36 +38,41 @@ const emit = defineEmits({
   max-width: 400px;
   border-radius: 8px;
   box-shadow: 0 2px 5px $shadow-color;
-}
+  width: 100%;
 
-.todo-text {
-  font-size: 1.1rem;
-  color: $text-color;
-  flex: 1;
-}
+  .todoText {
+    font-size: 1.1rem;
+    color: $text-color;
+    flex: 1;
+  }
 
-.todo-actions {
-  display: flex;
-  gap: 10px;
-  margin-left: 15px;
-}
+  .approvedText {
+    text-decoration: line-through;
+  }
 
-.approve-btn,
-.remove-btn {
-  border: none;
-  background-color: transparent;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
+  .todoActions {
+    display: flex;
+    gap: 10px;
+    margin-left: 15px;
+  }
 
-.approve-btn:hover {
-  color: $green;
-  transform: scale(1.2);
-}
+  .approveBTN,
+  .removeBTN {
+    border: none;
+    background-color: transparent;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
 
-.remove-btn:hover {
-  color: $red;
-  transform: scale(1.2);
+  .approveBTN:hover {
+    color: $green;
+    transform: scale(1.2);
+  }
+
+  .removeBTN:hover {
+    color: $red;
+    transform: scale(1.2);
+  }
 }
 </style>
